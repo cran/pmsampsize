@@ -1,0 +1,121 @@
+pmsampsize_cont <- function(rsquared,parameters,intercept,sd,shrinkage,mmoe) {
+  
+  r2a   <- rsquared
+  n     <- parameters + 2
+  n1    <- parameters + 2
+  
+  
+  # criteria 1
+  es    <-  1 + ((parameters-2)/(n1*(log(1-((r2a*(n1-parameters-1))+parameters)/(n1-1)))))
+  while (es < shrinkage) { 
+    n1 <- n1 + 1
+    es <- 1 + ((parameters-2)/(n1*(log(1-((r2a*(n1-parameters-1))+parameters)/(n1-1)))))
+      if (!is.na(es) & es >= shrinkage) { 
+      shrinkage_1 <- round(es,digits=3)
+      n1          <- n1
+      spp_1       <- n1/parameters
+      SPP_1       <- round(spp_1,digits=2)
+    }
+  }
+  
+
+  # criteria 2 - small absolute difference in r-sq adj & r-sq app
+  n2          <- 1+((parameters*(1-r2a))/0.05)
+  shrinkage_2 <- shrinkage
+  spp_2       <- n2/parameters
+  SPP_2       <- round(spp_2,digits=2)
+
+
+  # criteria 3 - precise estimate of residual variance
+  n3      <- 234
+  df      <- n3 - parameters-1
+  chilow  <- df/stats::qgamma(0.025,df/2,scale=2)
+  chiupp  <- stats::qgamma(0.975,df/2,scale=2)/df
+  max     <- max(chilow,chiupp)
+  resvar_mmoe <- max^.5
+  if (resvar_mmoe > mmoe) {
+    while (resvar_mmoe > mmoe) {
+      n3 <- n3 + 1
+      df <- n3 - parameters - 1
+      chilow  <- df/stats::qgamma(0.025,df/2,scale=2)
+      chiupp  <- stats::qgamma(0.975,df/2,scale=2)/df
+      max     <- max(chilow,chiupp)
+      resvar_mmoe <- max^.5
+      if (resvar_mmoe <= mmoe) { 
+          shrinkage_3 <- shrinkage
+          spp_3 <- n3 / parameters
+          SPP_3 <- round(spp_3,digits=2)
+      }
+    }
+  } else {
+    shrinkage_3 <- shrinkage
+    spp_3 <- n3 / parameters
+    SPP_3 <- round(spp_3,digits=2)
+  }
+  
+
+    # criteria 4 - precise estimation of intercept
+  n4    <- max(n1,n2,n3)
+  df    <- n4 - parameters - 1
+  uci   <- intercept+((((sd*(1-r2a))/n4)^.5)*(-stats::qt(0.025,df)))
+  lci   <- intercept-((((sd*(1-r2a))/n4)^.5)*(-stats::qt(0.025,df)))
+  int_mmoe <- uci / intercept
+  if (int_mmoe > mmoe) {
+    while (int_mmoe > mmoe) {
+      n4 <- n4 + 1
+      df <- n4 - parameters - 1
+      uci <- intercept + ((((sd*(1-r2a))/n4)^.5)*(stats::qt(0.025,df)))
+      lci <- intercept - ((((sd*(1-r2a))/n4)^.5)*(stats::qt(0.025,df)))
+      int_mmoe <- uci / intercept
+        if (int_mmoe <= mmoe) { 
+          shrinkage_4 <- shrinkage
+          spp_4 <- n4 / parameters
+          SPP_4 <- round(spp_4,digits=2)
+          int_uci <- round(uci,digits=2)
+          int_lci <- round(lci,digits=2)
+        }
+      }
+    } else {
+      shrinkage_4 <- shrinkage
+      spp_4 <- n4 / parameters
+      SPP_4 <- round(spp_4,digits=2)
+      int_uci <- round(uci,digits=2)
+      int_lci <- round(lci,digits=2)
+    }
+
+  
+  # minimum n 
+  nfinal <- max(n1,n2,n3,n4)	
+  spp_final <- nfinal / parameters
+  SPP_final <- round(spp_final,digits=2)
+  if (n1 >= n4) {
+    shrinkage_final <- shrinkage_1 
+  } else {
+    shrinkage_final <- shrinkage 
+  }
+  
+  
+  # create output table 
+  res <- matrix(NA,5,5)
+  colnames(res) <- c("Samp_size","Shrinkage","Parameter","Rsq","SPP")
+  rownames(res) <- c("Criteria 1","Criteria 2","Criteria 3","Criteria 4*","Final")
+  res[,1] <- c(n1,n2,n3,n4,nfinal)
+  res[,2] <- shrinkage
+  res[,3] <- parameters
+  res[,4] <- rsquared
+  res[,5] <- c(SPP_1,SPP_2,SPP_3,SPP_4,SPP_final)
+  
+  out <- list(results_table = res,
+              final_shrinkage = shrinkage_final,
+              sample_size = nfinal,
+              parameters = parameters,
+              r2a = r2a,
+              SPP = SPP_final,
+              int_mmoe = int_mmoe,
+              var_mmoe = resvar_mmoe,
+              intercept = intercept,
+              int_uci = int_uci,
+              int_lci = int_lci,
+              type = "continuous")
+  
+}

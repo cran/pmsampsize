@@ -1,0 +1,13 @@
+16cba1778d1e1a966ff33293ac6d0c1f *DESCRIPTION
+951bb18f577049e40937cab7be6ff336 *NAMESPACE
+a15eb2b3d8993615fb142605e3218029 *NEWS.md
+968257127781fe446df9d282fee66d80 *R/pmsampsize.R
+8c7e4cbfe6f7398056199a5acb1a2571 *R/pmsampsize_bin.R
+2ba204374075d0a0ec32e1df8a59e5e7 *R/pmsampsize_cont.R
+b950e27ef37a020265e35b0b555a43df *R/pmsampsize_errorcheck.R
+f704edc2704efd3d9353e8d4e6bfc137 *R/pmsampsize_surv.R
+ad6da3c548feb128829f76c0640f75a6 *man/pmsampsize.Rd
+f55bb3df1cc43e2d1b3a81cafe40f87d *tests/testthat/test_bin.R
+cc7bcc834ff8de7825f004fbffd985a5 *tests/testthat/test_cont.R
+7aa7006eb88cbeb992f92af5cc426800 *tests/testthat/test_surv.R
+5a627d684a6b824c1a73678084b51a07 *tests/testthat/test_syntax.R
