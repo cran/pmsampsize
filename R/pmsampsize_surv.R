@@ -15,7 +15,7 @@ pmsampsize_surv <- function(rsquared,parameters,rate,timepoint,meanfup,
   EPP_1 <- round(epp1,digits=2)
 
   # criteria 2 - small absolute difference in r-sq adj
-  lnLnull <- (events*(log(events/tot_per_yrs)))+events
+  lnLnull <- (events*(log(events/tot_per_yrs)))-events
   max_r2a <- round((1- exp((2*lnLnull)/n)),digits=2)
 
   if (max_r2a < r2a) {

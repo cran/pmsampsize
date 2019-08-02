@@ -7,8 +7,8 @@ test_that("Test 4.1", {
   test_ss <- test$results_table[,1]
   test_SPP <- test$results_table[,6]
   names(test_ss) <- names(test_SPP) <- c()
-  expect_equal(test_ss,ss,tolerance=1)
-  expect_equal(test_SPP,SPP,tolerance=1)
+  expect_equal(test_ss,ss)
+  expect_equal(test_SPP,SPP)
 })
 
 test_that("Test 4.2", {
@@ -18,8 +18,8 @@ test_that("Test 4.2", {
   test_ss <- test$results_table[,1]
   test_SPP <- test$results_table[,6]
   names(test_ss) <- names(test_SPP) <- c()
-  expect_equal(test_ss,ss,tolerance=1)
-  expect_equal(test_SPP,SPP,tolerance=1)
+  expect_equal(test_ss,ss)
+  expect_equal(test_SPP,SPP)
 })
 
 test_that("Test 4.3", {
@@ -29,8 +29,8 @@ test_that("Test 4.3", {
   test_ss <- test$results_table[,1]
   test_SPP <- test$results_table[,6]
   names(test_ss) <- names(test_SPP) <- c()
-  expect_equal(test_ss,ss,tolerance=1)
-  expect_equal(test_SPP,SPP,tolerance=1)
+  expect_equal(test_ss,ss)
+  expect_equal(test_SPP,SPP)
 })
 
 test_that("Test 4.4", {
@@ -40,8 +40,8 @@ test_that("Test 4.4", {
   test_ss <- test$results_table[,1]
   test_SPP <- test$results_table[,6]
   names(test_ss) <- names(test_SPP) <- c()
-  expect_equal(test_ss,ss,tolerance=1)
-  expect_equal(test_SPP,SPP,tolerance=1)
+  expect_equal(test_ss,ss)
+  expect_equal(test_SPP,SPP)
 })
 
 

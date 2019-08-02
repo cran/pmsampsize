@@ -96,6 +96,11 @@ value, and \cr
 iii) precise estimation (within +/- 0.05) of the average outcome risk in the
 population for a key timepoint of interest for prediction.
 }
+\details{
+NB: When specifying a binary outcome prediction model with 12 or fewer predictor 
+parameters, an alternative approach by van Smeden et al. may be considered as 
+presented here: https://mvansmeden.shinyapps.io/BeyondEPV/
+}
 \examples{
 ## Examples based on those included in two papers by Riley et al. 
 ## published in Statistics in Medicine (2018).
@@ -141,6 +146,10 @@ Riley RD, Snell KIE, Ensor J, Burke DL, Harrell FE, Jr., Moons KG, Collins GS.
 Minimum sample size required for developing a multivariable prediction model: 
 Part II binary and time-to-event outcomes.
 \emph{Statistics in Medicine}. 2018 (in-press). doi: 10.1002/sim.7992
+
+van Smeden M, Moons KG, de Groot JA, et al. Sample size for binary logistic 
+prediction models: Beyond events per variable criteria. 
+\emph{Stat Methods Med Res}. 2019;28(8):2455-74
 }
 \author{
 Joie Ensor (Keele University, j.ensor@keele.ac.uk),
