@@ -25,6 +25,9 @@
 #' NB: When specifying a binary outcome prediction model with 12 or fewer predictor 
 #' parameters, an alternative approach by van Smeden et al. may be considered as 
 #' presented here: https://mvansmeden.shinyapps.io/BeyondEPV/
+#' 
+#' Version 1.0.2: update forces the time-unit to be the mean follow-up time, as described in the
+#' forthcoming BMJ paper which extends the original Statistics in Medicine paper 
 #'
 #' 
 #' @author Joie Ensor (Keele University, j.ensor@keele.ac.uk), 
@@ -72,13 +75,16 @@
 #' dataset. This should be derived based on previous studies in the same population.
 #' 
 #' @param rate (survival outcome option) specifies the overall event rate in the population of interest,
-#' for example as obtained from a previous study, for the survival outcome of interest.
+#' for example as obtained from a previous study, for the survival outcome of interest. NB: rate must 
+#' be given in time units used for meanfup and timepoint options.
 #' 
 #' @param timepoint (survival outcome option) specifies the timepoint of interest for prediction.
+#' NB: time units must be the same as given for meanfup option (e.g. years, months).
 #' 
 #' @param meanfup (survival outcome option) specifies the average (mean) follow-up time 
 #' anticipated for individuals in the model development dataset, 
 #' for example as taken from a previous study in the population of interest.
+#' NB: time units must be the same as given for timepoint option.
 #' 
 #' @param  intercept (continuous outcome options) specifies the average outcome value in the population of
 #' interest e.g. the average blood pressure, or average pain score. 
@@ -99,6 +105,7 @@
 #' @examples
 #' ## Examples based on those included in two papers by Riley et al. 
 #' ## published in Statistics in Medicine (2018).
+#' ## NB: Survival example based on Riley et al. BMJ paper (2019).
 #' 
 #' ## Binary outcomes (Logistic prediction models)
 #' # Use pmsampsize to calculate the minimum sample size required to develop a
@@ -112,14 +119,14 @@
 #' 
 #' ## Survial outcomes (Cox prediction models)
 #' # Use pmsampsize to calculate the minimum sample size required for developing
-#' # a multivariable prediction model with a survival outcome using 25 candidate
+#' # a multivariable prediction model with a survival outcome using 30 candidate
 #' # predictors. We know an existing prediction model in the same field has an
 #' # R-squared adjusted of 0.051. Further, in the previous study the mean
 #' # follow-up was 2.07 years, and overall event rate was 0.065. We select a
 #' # timepoint of interest for prediction using the newly developed model of 2
 #' # years
 #' 
-#' pmsampsize(type = "s", rsquared = 0.051, parameters = 25, rate = 0.065, 
+#' pmsampsize(type = "s", rsquared = 0.051, parameters = 30, rate = 0.065, 
 #'            timepoint = 2, meanfup = 2.07)
 #' 
 #' ## Continuous outcomes (Linear prediction models)
@@ -142,6 +149,9 @@
 #' @references van Smeden M, Moons KG, de Groot JA, et al. Sample size for binary logistic 
 #' prediction models: Beyond events per variable criteria. 
 #' \emph{Stat Methods Med Res}. 2019;28(8):2455-74
+#' @references Riley RD, Ensor J, Snell KIE, et al. Calculating the minimum sample size needed 
+#' to develop a robust clinical prediction model.
+#' \emph{Submitted to BMJ}. 2019
 
 #' @export
 pmsampsize <- function(type,
@@ -204,9 +214,10 @@ print.pmsampsize <- function(x, ...) {
   }
   if (x$type == "survival") {
     cat(" \n Minimum sample size required for new model development based on user inputs = ", x$sample_size, ", \n ",sep = "")
-    cat("corresponding to", x$tot_per_yrs_final, "person-years of follow-up, with", ceiling(x$events), "outcome events \n ")
+    cat("corresponding to", x$tot_per_yrs_final, "person-time** of follow-up, with", ceiling(x$events), "outcome events \n ")
     cat("assuming an overall event rate =", x$rate, "and therefore an EPP =", x$EPP, " \n \n ")
     cat("* 95% CI for overall risk = (",x$int_lci,", ", x$int_uci, "), for true value of ", x$int_cuminc, " and sample size n = ",x$sample_size,sep = "")
+    cat(" \n **where time is in the units mean follow-up time was specified in")
   }
   if (x$type == "binary") {
     cat(" \n Minimum sample size required for new model development based on user inputs = ", x$sample_size, ", \n ",sep = "")
@@ -242,9 +253,10 @@ summary.pmsampsize <- function(object, ...) {
   }
   if (object$type == "survival") {
     cat(" \n Minimum sample size required for new model development based on user inputs = ", object$sample_size, ", \n ",sep = "")
-    cat("corresponding to", object$tot_per_yrs_final, "person-years of follow-up, with", ceiling(object$events), "outcome events \n ")
+    cat("corresponding to", object$tot_per_yrs_final, "person-time** of follow-up, with", ceiling(object$events), "outcome events \n ")
     cat("assuming an overall event rate =", object$rate, "and therefore an EPP =", object$EPP, " \n \n ")
     cat("* 95% CI for overall risk = (",object$int_lci,", ", object$int_uci, "), for true value of ", object$int_cuminc, " and sample size n = ",object$sample_size,sep = "")
+    cat(" \n **where time is in the units mean follow-up time was specified in")  
   }
   if (object$type == "binary") {
     cat(" \n Minimum sample size required for new model development based on user inputs = ", object$sample_size, ", \n ",sep = "")
