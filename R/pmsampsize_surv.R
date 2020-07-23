@@ -7,6 +7,11 @@ pmsampsize_surv <- function(rsquared,parameters,rate,timepoint,meanfup,
   tot_per_yrs <- meanfup*n
   events <- ceiling(rate*tot_per_yrs)
   
+  if (shrinkage < r2a) {
+    error_msg <- paste0("User specified shrinkage is lower than R-squared adjusted. Error in log(1 - (r2a/shrinkage)) : NaNs produced")
+    stop(error_msg)
+  }
+  
   # criteria 1 - shrinkage
   n1 <- ceiling((parameters/((shrinkage-1)*(log(1-(r2a/shrinkage))))))
   shrinkage_1 <- shrinkage

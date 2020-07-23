@@ -3,6 +3,11 @@ pmsampsize_bin <- function(rsquared,parameters,prevalence,shrinkage) {
   r2a <- rsquared
   n1 <- n2 <- n3 <- parameters
   
+  if (shrinkage < r2a) {
+    error_msg <- paste0("User specified shrinkage is lower than R-squared adjusted. Error in log(1 - (r2a/shrinkage)) : NaNs produced")
+    stop(error_msg)
+  }
+  
   # criteria 1 - shrinkage
   n1 <- ceiling((parameters/((shrinkage-1)*(log(1-(r2a/shrinkage))))))
   shrinkage_1 <- shrinkage

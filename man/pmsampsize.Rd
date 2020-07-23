@@ -114,13 +114,12 @@ NB: When specifying a binary outcome prediction model with 12 or fewer predictor
 parameters, an alternative approach by van Smeden et al. may be considered as 
 presented here: https://mvansmeden.shinyapps.io/BeyondEPV/
 
-Version 1.0.2: update forces the time-unit to be the mean follow-up time, as described in the
-forthcoming BMJ paper which extends the original Statistics in Medicine paper
+Version 1.0.2: update forces the time-unit to be the mean follow-up time, as described in the BMJ paper referenced below
 }
 \examples{
 ## Examples based on those included in two papers by Riley et al. 
 ## published in Statistics in Medicine (2018).
-## NB: Survival example based on Riley et al. BMJ paper (2019).
+## NB: Survival example based on Riley et al. BMJ paper (2020).
 
 ## Binary outcomes (Logistic prediction models)
 # Use pmsampsize to calculate the minimum sample size required to develop a
@@ -155,6 +154,10 @@ pmsampsize(type = "c", rsquared = 0.2, parameters = 25, intercept = 1.9, sd = 0.
 
 }
 \references{
+Riley RD, Ensor J, Snell KIE, Harrell FE, Martin GP, Reitsma JB, et al. 
+Calculating the sample size required for developing a clinical prediction model. 
+\emph{BMJ (Clinical research ed)}. 2020
+
 Riley RD, Snell KIE, Ensor J, Burke DL, Harrell FE, Jr., Moons KG, Collins GS.  
 Minimum sample size required for developing a multivariable prediction model: Part I continuous outcomes. 
 \emph{Statistics in Medicine}. 2018 (in-press). doi: 10.1002/sim.7993
@@ -167,15 +170,11 @@ Part II binary and time-to-event outcomes.
 van Smeden M, Moons KG, de Groot JA, et al. Sample size for binary logistic 
 prediction models: Beyond events per variable criteria. 
 \emph{Stat Methods Med Res}. 2019;28(8):2455-74
-
-Riley RD, Ensor J, Snell KIE, et al. Calculating the minimum sample size needed 
-to develop a robust clinical prediction model.
-\emph{Submitted to BMJ}. 2019
 }
 \author{
 Joie Ensor (Keele University, j.ensor@keele.ac.uk),
 
-Emma C. Martin (University of Leicester, emma.martin@le.ac.uk),
+Emma C. Martin (University of Leicester),
 
 Richard D. Riley (Keele University, r.riley@keele.ac.uk)
 }

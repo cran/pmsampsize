@@ -66,4 +66,16 @@ test_that("Test 2.6", {
   expect_equal(test_SPP,SPP)
 })
 
-
+test_that("Test 2.7", {
+  ss <- c(32, 67, 264, 264, 264)
+  SPP <- c(1.07, 2.23, 8.8, 8.8, 8.8)
+  shrink <- c(0.845, 0.851, 0.954, 0.954, 0.954)
+  test <- pmsampsize(type="c",rsquared=0.89,parameters=30,intercept=3.3,sd=1.1,shrinkage = 0.84)
+  test_ss <- test$results_table[,1]
+  test_SPP <- test$results_table[,5]
+  test_shrink <- test$results_table[,2]
+  names(test_ss) <- names(test_SPP) <- names(test_shrink) <- c()
+  expect_equal(test_ss,ss)
+  expect_equal(test_SPP,SPP)
+  expect_equal(test_shrink,shrink)
+})
