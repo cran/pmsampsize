@@ -1,6 +1,6 @@
 context("syntax_checks")
 
-# general checks 
+# general checks
 #======================================
 test_that("Test 1.1.1", {
   errormessage <- 'argument "type" is missing, with no default'
@@ -8,7 +8,7 @@ test_that("Test 1.1.1", {
 })
 
 test_that("Test 1.1.2", {
-  errormessage <- 'argument "rsquared" is missing, with no default'
+  errormessage <- 'rsquared must be specified for continuous outcome models'
   expect_error(pmsampsize(type="c",parameters=25,intercept=1.9,sd=0.6), errormessage)
 })
 
@@ -18,7 +18,7 @@ test_that("Test 1.1.3", {
 })
 
 
-# checks for continuous sample size 
+# checks for continuous sample size
 #======================================
 test_that("Test 1.2.1", {
   errormessage <- "sd must be specified for continuous sample size"
@@ -71,7 +71,7 @@ test_that("Test 1.2.10", {
 })
 
 
-# checks for binary sample size 
+# checks for binary sample size
 #======================================
 test_that("Test 1.3.1", {
   errormessage <- "prevalence must be specified for binary sample size"
@@ -109,7 +109,7 @@ test_that("Test 1.3.7", {
 })
 
 
-# checks for survival sample size 
+# checks for survival sample size
 #======================================
 test_that("Test 1.4.1", {
   errormessage <- "rate must be specified for survival sample size"
