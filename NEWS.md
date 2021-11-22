@@ -1,3 +1,8 @@
+pmsampsize v1.1.1 (Release date: 2021-11-21)
+=============================================
+* fixes issues with rounding leading to small differences in Max_Rsq and subsequently sample size calculations
+* additional output including Nagelkerke's R-sq (binary & survival outcomes)
+
 pmsampsize v1.1.0 (Release date: 2021-06-24)
 =============================================
 * update allowing user to input C-statistic from existing model to approximate Cox-Snell R-squared (for binary outcome model sample size calculations) 
@@ -18,7 +23,7 @@ Continuous outcomes:
 
 Binary and TTE outcomes:
 
-* more informative error message added for rare scenario where shrinkge is specified lower than r-squared which results in NaNs from shrinkage formula 
+* more informative error message added for rare scenario where shrinkage is specified lower than r-squared which results in NaNs from shrinkage formula 
 
 pmsampsize v1.0.2 (Release date: 2019-11-15)
 =============================================
