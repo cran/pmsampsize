@@ -57,7 +57,7 @@ pmsampsize_bin <- function(rsquared,parameters,prevalence,shrinkage,cstatistic) 
 
   # create output table
   res <- matrix(NA,4,7)
-  colnames(res) <- c("Samp_size","Shrinkage","Parameter","Rsq","Max_Rsq","Nag_Rsq", "EPP")
+  colnames(res) <- c("Samp_size","Shrinkage","Parameter","CS_Rsq","Max_Rsq","Nag_Rsq", "EPP")
   rownames(res) <- c("Criteria 1","Criteria 2","Criteria 3","Final")
   res[,1] <- c(n1,n2,n3,nfinal)
   res[,2] <- round(c(shrinkage_1,shrinkage_2,shrinkage_3,shrinkage_final),digits = 3)

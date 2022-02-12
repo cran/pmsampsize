@@ -1,12 +1,12 @@
-5094138d5675ef8dad32c0147e05da5c *DESCRIPTION
+fec7fd24432f919fb974e455e1597e55 *DESCRIPTION
 951bb18f577049e40937cab7be6ff336 *NAMESPACE
-5a0332a7ff2a8c0420bdf2928770e865 *NEWS.md
+489e3acd125b71f56a142775c8f69e11 *NEWS.md
 f4903bbd800674abf4b9c60ade9eaeb5 *R/cstat2rsq.R
 cf8fcd20b13e879f64f637d2002d169e *R/pmsampsize.R
-e0899d77283e418c88460ca78e600404 *R/pmsampsize_bin.R
-721cae49c1aeb6596489e117dc97ba1d *R/pmsampsize_cont.R
+a75faa91377516895a95e03d59eacb07 *R/pmsampsize_bin.R
+86a5f5f639378df0c375861c778726c2 *R/pmsampsize_cont.R
 014af0186c74e24be34e8c06fdcbd69b *R/pmsampsize_errorcheck.R
-19090a66f5e56e9d9e9f8a5364ebd52a *R/pmsampsize_surv.R
+66cb81d07f819e63637dfe000a254e3b *R/pmsampsize_surv.R
 963c5f94a678c40dc27fba764935a6b1 *man/pmsampsize.Rd
 37b025fe1216edd04e973a35a9ad65d2 *tests/testthat/test_bin.R
 b477d1f50f1bd309501b2b6348122678 *tests/testthat/test_cont.R

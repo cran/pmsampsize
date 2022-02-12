@@ -1,6 +1,6 @@
 Package: pmsampsize
-Version: 1.1.1
-Date: 2021-11-21
+Version: 1.1.2
+Date: 2022-02-12
 Title: Calculates the Minimum Sample Size Required for Developing a
         Multivariable Prediction Model
 Authors@R: c(person("Joie", "Ensor", role = c("aut", "cre"), email = "j.ensor@keele.ac.uk"),
@@ -14,9 +14,9 @@ License: GPL (>= 3)
 RoxygenNote: 7.1.2
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2021-11-22 09:39:22 UTC; prc87
+Packaged: 2022-02-12 16:45:24 UTC; prc87
 Author: Joie Ensor [aut, cre],
   Emma C. Martin [aut],
   Richard D. Riley [aut]
 Repository: CRAN
-Date/Publication: 2021-11-22 09:50:10 UTC
+Date/Publication: 2022-02-12 17:00:02 UTC

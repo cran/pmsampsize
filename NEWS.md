@@ -1,3 +1,8 @@
+pmsampsize v1.1.2 (Release date: 2022-02-12)
+=============================================
+* fixes issue for continuous outcome models in criteria 4 in calculating the CI for the intercept based on final SS
+* edit to criteria 2 for continuous outcomes to round up N
+
 pmsampsize v1.1.1 (Release date: 2021-11-21)
 =============================================
 * fixes issues with rounding leading to small differences in Max_Rsq and subsequently sample size calculations
