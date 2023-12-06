@@ -75,37 +75,37 @@ test_that("Test 1.2.10", {
 #======================================
 test_that("Test 1.3.1", {
   errormessage <- "prevalence must be specified for binary sample size"
-  expect_error(pmsampsize(type="b", rsquared= 0.288, parameters=24), errormessage)
+  expect_error(pmsampsize(type="b", csrsquared= 0.288, parameters=24), errormessage)
 })
 
 test_that("Test 1.3.2", {
   errormessage <- "prevalence must be numeric"
-  expect_error(pmsampsize(type="b", rsquared= 0.288, parameters=24, prevalence = "0.174"), errormessage)
+  expect_error(pmsampsize(type="b", csrsquared= 0.288, parameters=24, prevalence = "0.174"), errormessage)
 })
 
 test_that("Test 1.3.3", {
   errormessage <- "intercept not required for binary sample size"
-  expect_error(pmsampsize(type="b", rsquared= 0.288, parameters=24, prevalence = 0.174, intercept=1.9), errormessage)
+  expect_error(pmsampsize(type="b", csrsquared= 0.288, parameters=24, prevalence = 0.174, intercept=1.9), errormessage)
 })
 
 test_that("Test 1.3.4", {
   errormessage <- "sd not required for binary sample size"
-  expect_error(pmsampsize(type="b", rsquared= 0.288, parameters=24, prevalence = 0.174, sd=0.6), errormessage)
+  expect_error(pmsampsize(type="b", csrsquared= 0.288, parameters=24, prevalence = 0.174, sd=0.6), errormessage)
 })
 
 test_that("Test 1.3.5", {
   errormessage <- "rate not required for binary sample size"
-  expect_error(pmsampsize(type="b", rsquared= 0.288, parameters=24, prevalence = 0.174, rate=0.6), errormessage)
+  expect_error(pmsampsize(type="b", csrsquared= 0.288, parameters=24, prevalence = 0.174, rate=0.6), errormessage)
 })
 
 test_that("Test 1.3.6", {
   errormessage <- "timepoint not required for binary sample size"
-  expect_error(pmsampsize(type="b", rsquared= 0.288, parameters=24, prevalence = 0.174, timepoint=2), errormessage)
+  expect_error(pmsampsize(type="b", csrsquared= 0.288, parameters=24, prevalence = 0.174, timepoint=2), errormessage)
 })
 
 test_that("Test 1.3.7", {
   errormessage <- "meanfup not required for binary sample size"
-  expect_error(pmsampsize(type="b", rsquared= 0.288, parameters=24, prevalence = 0.174, meanfup=2.07), errormessage)
+  expect_error(pmsampsize(type="b", csrsquared= 0.288, parameters=24, prevalence = 0.174, meanfup=2.07), errormessage)
 })
 
 
@@ -113,47 +113,47 @@ test_that("Test 1.3.7", {
 #======================================
 test_that("Test 1.4.1", {
   errormessage <- "rate must be specified for survival sample size"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, timepoint=2, meanfup=2.07), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, timepoint=2, meanfup=2.07), errormessage)
 })
 
 test_that("Test 1.4.2", {
   errormessage <- "timepoint must be specified for survival sample size"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate=0.065, meanfup=2.07), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate=0.065, meanfup=2.07), errormessage)
 })
 
 test_that("Test 1.4.3", {
   errormessage <- "meanfup must be specified for survival sample size"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate=0.065, timepoint=2), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate=0.065, timepoint=2), errormessage)
 })
 
 test_that("Test 1.4.4", {
   errormessage <- "rate must be numeric"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate="0.065", timepoint=2, meanfup=2.07), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate="0.065", timepoint=2, meanfup=2.07), errormessage)
 })
 
 test_that("Test 1.4.4", {
   errormessage <- "timepoint must be numeric"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate=0.065, timepoint="2", meanfup=2.07), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate=0.065, timepoint="2", meanfup=2.07), errormessage)
 })
 
 test_that("Test 1.4.4", {
   errormessage <- "meanfup must be numeric"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate=0.065, timepoint=2, meanfup="2.07"), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate=0.065, timepoint=2, meanfup="2.07"), errormessage)
 })
 
 test_that("Test 1.4.5", {
   errormessage <- "the specified overall event rate must be greater than 0"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate=-0.065, timepoint=2, meanfup=2.07), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate=-0.065, timepoint=2, meanfup=2.07), errormessage)
 })
 
 test_that("Test 1.4.6", {
   errormessage <- "the timepoint of interest for prediction must be greater than 0"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate=0.065, timepoint=-2, meanfup=2.07), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate=0.065, timepoint=-2, meanfup=2.07), errormessage)
 })
 
 test_that("Test 1.4.7", {
   errormessage <- "the average mean follow-up time must be greater than 0"
-  expect_error(pmsampsize(type="s", rsquared= 0.051, parameters=25, rate=0.065, timepoint=2, meanfup=-2.07), errormessage)
+  expect_error(pmsampsize(type="s", csrsquared= 0.051, parameters=25, rate=0.065, timepoint=2, meanfup=-2.07), errormessage)
 })
 
 

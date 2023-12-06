@@ -3,10 +3,12 @@
 \name{pmsampsize}
 \alias{pmsampsize}
 \title{pmsampsize
-- Calculates the minimum sample size required for developing a multivariable prediction model}
+- Sample Size for Development of a Prediction Model}
 \usage{
 pmsampsize(
   type,
+  nagrsquared = NA,
+  csrsquared = NA,
   rsquared = NA,
   parameters,
   shrinkage = 0.9,
@@ -29,21 +31,32 @@ pmsampsize(
     \item \code{"s"} specifies sample size calculation for a prediction model with a survival (time-to-event) outcome
 }}
 
-\item{rsquared}{specifies the expected value of the (Cox-Snell) R-squared of the new model,
+\item{nagrsquared}{for \code{type="b" or type="s"} this specifies the expected value of
+the Nagelkerke's R-squared of the new model, which is the Cox-Snell R-squared scaled to
+lie in the [0,1] range. It is interpretable in the same way as the standard R-squared, i.e.
+the percentage of variation in outcome values explained by the model.
+Please read the description of \code{rsquared} for additional details about specifying the
+expected R-squared performance}
+
+\item{csrsquared}{for \code{type="b" or type="s"} this specifies the expected value of
+the Cox-Snell R-squared of the new model. The Cox-Snell R-squared is the generalised
+version of the well-known R-squared for continuous outcomes, based on the likelihood.
+Please read the description of \code{rsquared} for additional details about specifying the
+expected R-squared performance.
+The papers by Riley et al. (see references) outline how to obtain the Cox-Snell R-squared value
+from published studies if they are not reported, using other information (such as the
+C-statistic [see \code{cstatistic()} option below]).}
+
+\item{rsquared}{for \code{type="c"} this specifies the expected value of the R-squared of the new model,
 where R-squared is the percentage of variation in outcome values explained by the model.
-For example, the user may input the value of the (Cox-Snell) R-squared reported for a
+For example, the user may input the value of the R-squared reported for a
 previous prediction model study in the same field.  If taking a value from a previous
 prediction model development study, users should input the model's adjusted R-squared
 value, not the apparent R-squared value, as the latter is optimistic (biased).  However,
 if taking the R-squared value from an external validation of a previous model, the
 apparent R-squared can be used (as the validation data was not used for development, and
-so R-squared apparent is then unbiased).  Note that for binary and survival outcome
-models, the Cox-Snell R-squared value is required; this is the generalised version of
-the well-known R-squared for continuous outcomes, based on the likelihood.  The papers
-by Riley et al. (see references) outline how to obtain the Cox-Snell R-squared value
-from published studies if they are not reported, using other information (such as the
-C-statistic [see cstatistic() option below] or Nagelkerke's R-squared).  Users should
-be conservative with their chosen R-squared value; for example, by taking the R-squared
+so R-squared apparent is then unbiased).
+Users should be conservative with their chosen R-squared value; for example, by taking the R-squared
 value from a previous model, even if they hope their new model will improve performance.}
 
 \item{parameters}{specifies the number of candidate predictor parameters for potential
@@ -58,53 +71,60 @@ default in \code{pmsampsize}), which indicates that the predictor effect (beta c
 the model would need to be shrunk by 10\% to adjust for overfitting. See references
 below for further information.}
 
-\item{prevalence}{(binary outcome option) specifies the overall outcome proportion
+\item{prevalence}{(\code{type="b"} option) specifies the overall outcome proportion
 (for a prognostic model) or
 overall prevalence (for a diagnostic model) expected within the model development
 dataset. This should be derived based on previous studies in the same population.}
 
-\item{cstatistic}{(binary outcome option) specifies the C-statistic reported in an
+\item{cstatistic}{(\code{type="b"} option) specifies the C-statistic reported in an
 existing prediction model study to be used in conjunction with the expected
 prevalence to approximate the Cox-Snell R-squared using the approach of Riley et al. 2020.
 Ideally, this should be an optimism-adjusted C-statistic. The approximate Cox-Snell R-squared
-value is used as described above for the rsquared() option, and so is treated as a baseline
+value is used as described above for the \code{csrsquared()} option, and so is treated as a baseline
 for the expected performance of the new model.}
 
-\item{seed}{(binary outcome option) specifies the initial value of the random-number
+\item{seed}{(\code{type="b"} option) specifies the initial value of the random-number
 seed used by the random-number functions when simulating data to approximate the
 Cox-Snell R-squared based on reported C-statistic and expect prevalence as described
 by Riley et al. 2020}
 
-\item{rate}{(survival outcome option) specifies the overall event rate in the population of interest,
+\item{rate}{(\code{type="s"} option) specifies the overall event rate in the population of interest,
 for example as obtained from a previous study, for the survival outcome of interest. NB: rate must
 be given in time units used for meanfup and timepoint options.}
 
-\item{timepoint}{(survival outcome option) specifies the timepoint of interest for prediction.
+\item{timepoint}{(\code{type="s"} option) specifies the timepoint of interest for prediction.
 NB: time units must be the same as given for meanfup option (e.g. years, months).}
 
-\item{meanfup}{(survival outcome option) specifies the average (mean) follow-up time
+\item{meanfup}{(\code{type="s"} option) specifies the average (mean) follow-up time
 anticipated for individuals in the model development dataset,
 for example as taken from a previous study in the population of interest.
 NB: time units must be the same as given for timepoint option.}
 
-\item{intercept}{(continuous outcome options) specifies the average outcome value in the population of
+\item{intercept}{(\code{type="c"} options) specifies the average outcome value in the population of
 interest e.g. the average blood pressure, or average pain score.
 This could be based on a previous study, or on clinical knowledge.}
 
-\item{sd}{(continuous outcome options) specifies the standard deviation (SD) of
+\item{sd}{(\code{type="c"} options) specifies the standard deviation (SD) of
 outcome values in the population e.g.
 the SD for blood pressure in patients with all other predictors set to the average.
 This could again be based on a previous study, or on clinical knowledge.}
 
-\item{mmoe}{(continuous outcome options) multiplicative margin of error (MMOE)
+\item{mmoe}{(\code{type="c"} options) multiplicative margin of error (MMOE)
 acceptable for calculation of the
 intercept. The default is a MMOE of 10\%. Confidence interval for the intercept will be
 displayed in the output for reference. See references below for further information.}
 }
+\value{
+A list including a matrix of calculated sample size requirements for each criteria defined
+under \emph{'Details'}, and a series of vectors of parameters used in the calculations as well as the
+final recommended minimum sample size and number of events required for model development.
+}
 \description{
 \code{pmsampsize} computes the minimum sample size required for the development of a new
-multivariable prediction model using the criteria proposed by Riley \emph{et al}. 2018. \code{pmsampsize}
-can be used to calculate the minimum sample size for the development of models with
+multivariable prediction model using the criteria proposed by Riley \emph{et al}. 2018.
+}
+\details{
+\code{pmsampsize} can be used to calculate the minimum sample size for the development of models with
 continuous, binary or survival (time-to-event) outcomes. Riley \emph{et al}. lay out a series of
 criteria the sample size should meet. These aim to minimise the overfitting and to ensure
 precise estimation of key parameters in the prediction model. \cr \cr
@@ -122,13 +142,9 @@ ii) small absolute difference of 0.05 in the model's apparent and adjusted Nagel
 value, and \cr
 iii) precise estimation (within +/- 0.05) of the average outcome risk in the
 population for a key timepoint of interest for prediction.
-}
-\details{
-NB: When specifying a binary outcome prediction model with 12 or fewer predictor
-parameters, an alternative approach by van Smeden et al. may be considered as
-presented here: https://mvansmeden.shinyapps.io/BeyondEPV/
 
-With thanks to Gary Collins, Glen Martin & Kym Snell for helpful input & feedback
+
+With thanks to Richard D. Riley, Emma C Martin, Gary Collins, Glen Martin & Kym Snell for helpful input & feedback
 }
 \examples{
 ## Examples based on those included in two papers by Riley et al.
@@ -143,7 +159,7 @@ With thanks to Gary Collins, Glen Martin & Kym Snell for helpful input & feedbac
 # Cox-Snell R-squared of an existing prediction model) for the new model's
 # R-squared value is 0.288
 
-pmsampsize(type = "b", rsquared = 0.288, parameters = 24, prevalence = 0.174)
+pmsampsize(type = "b", csrsquared = 0.288, parameters = 24, prevalence = 0.174)
 
 # Now lets assume we could not obtain a Cox-Snell R-squared estimate from an existing
 # prediction model, but instead had a C-statistic (0.89) reported for the existing prediction
@@ -162,7 +178,7 @@ pmsampsize(type = "b", cstatistic = 0.89, parameters = 24, prevalence = 0.174)
 # timepoint of interest for prediction using the newly developed model of 2
 # years
 
-pmsampsize(type = "s", rsquared = 0.051, parameters = 30, rate = 0.065,
+pmsampsize(type = "s", csrsquared = 0.051, parameters = 30, rate = 0.065,
            timepoint = 2, meanfup = 2.07)
 
 ## Continuous outcomes (Linear prediction models)
@@ -189,18 +205,10 @@ Minimum sample size required for developing a multivariable prediction model:
 Part II binary and time-to-event outcomes.
 \emph{Statistics in Medicine}. 2018 (in-press). doi: 10.1002/sim.7992
 
-van Smeden M, Moons KG, de Groot JA, et al. Sample size for binary logistic
-prediction models: Beyond events per variable criteria.
-\emph{Stat Methods Med Res}. 2019;28(8):2455-74
-
 Riley, RD, Van Calster, B, Collins, GS. A note on estimating the Cox-Snell R2
 from a reported C statistic (AUROC) to inform sample size calculations for developing a
 prediction model with a binary outcome. \emph{Statistics in Medicine}. 2020
 }
 \author{
-Joie Ensor (Keele University, j.ensor@keele.ac.uk),
-
-Emma C. Martin (Phastar),
-
-Richard D. Riley (Keele University)
+Joie Ensor (University of Birmingham, j.ensor@bham.ac.uk),
 }

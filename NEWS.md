@@ -1,3 +1,8 @@
+pmsampsize v1.1.3 (Release date: 2023-12-05)
+=============================================
+* added options to specify the cox-snell or nagelkerke's r-squared directly for binary outcome models
+* simplified continuous outcome models criteria 3 calculation fixing MMOE=10% so that N=234+p
+
 pmsampsize v1.1.2 (Release date: 2022-02-12)
 =============================================
 * fixes issue for continuous outcome models in criteria 4 in calculating the CI for the intercept based on final SS

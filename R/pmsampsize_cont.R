@@ -36,34 +36,12 @@ pmsampsize_cont <- function(rsquared,parameters,intercept,sd,shrinkage,mmoe) {
 
 
   # criteria 3 - precise estimate of residual variance
-  n3      <- 234
-  df      <- n3 - parameters-1
-  chilow  <- df/stats::qgamma(0.025,df/2,scale=2)
-  chiupp  <- stats::qgamma(0.975,df/2,scale=2)/df
-  max     <- max(chilow,chiupp)
-  resvar_mmoe <- max^.5
-  if (resvar_mmoe > mmoe) {
-    while (resvar_mmoe > mmoe) {
-      n3 <- n3 + 1
-      df <- n3 - parameters - 1
-      chilow  <- df/stats::qgamma(0.025,df/2,scale=2)
-      chiupp  <- stats::qgamma(0.975,df/2,scale=2)/df
-      max     <- max(chilow,chiupp)
-      resvar_mmoe <- max^.5
-      if (resvar_mmoe <= mmoe) {
-          shrinkage_3 <- 1 + ((parameters-2)/(n3*(log(1-((r2a*(n3-parameters-1))+parameters)/(n3-1)))))
-          shrinkage_3 <- round(shrinkage_3,digits=3)
-          spp_3 <- n3 / parameters
-          SPP_3 <- round(spp_3,digits=2)
-      }
-    }
-  } else {
-    shrinkage_3 <- 1 + ((parameters-2)/(n3*(log(1-((r2a*(n3-parameters-1))+parameters)/(n3-1)))))
-    shrinkage_3 <- round(shrinkage_3,digits=3)
-    spp_3 <- n3 / parameters
-    SPP_3 <- round(spp_3,digits=2)
-  }
+  n3      <- 234 + parameters
 
+  shrinkage_3 <- 1 + ((parameters-2)/(n3*(log(1-((r2a*(n3-parameters-1))+parameters)/(n3-1)))))
+  shrinkage_3 <- round(shrinkage_3,digits=3)
+  spp_3 <- n3 / parameters
+  SPP_3 <- round(spp_3,digits=2)
 
     # criteria 4 - precise estimation of intercept
   n4    <- max(n1,n2,n3)
@@ -122,7 +100,6 @@ pmsampsize_cont <- function(rsquared,parameters,intercept,sd,shrinkage,mmoe) {
               r2a = r2a,
               SPP = SPP_final,
               int_mmoe = int_mmoe,
-              var_mmoe = resvar_mmoe,
               intercept = intercept,
               int_uci = int_uci,
               int_lci = int_lci,

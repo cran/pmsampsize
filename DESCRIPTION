@@ -1,22 +1,17 @@
 Package: pmsampsize
-Version: 1.1.2
-Date: 2022-02-12
-Title: Calculates the Minimum Sample Size Required for Developing a
-        Multivariable Prediction Model
-Authors@R: c(person("Joie", "Ensor", role = c("aut", "cre"), email = "j.ensor@keele.ac.uk"),
-             person("Emma C.", "Martin", role = "aut", email = "emma.martin@leicester.ac.uk"),
-	     person("Richard D.", "Riley", role = "aut", email = "r.riley@keele.ac.uk"))
-Maintainer: Joie Ensor <j.ensor@keele.ac.uk>
+Version: 1.1.3
+Date: 2023-12-05
+Title: Sample Size for Development of a Prediction Model
+Authors@R: c(person("Joie", "Ensor", role = c("aut", "cre"), email = "j.ensor@bham.ac.uk"))
+Maintainer: Joie Ensor <j.ensor@bham.ac.uk>
 Depends: R (>= 2.1)
 Suggests: stats
 Description: Computes the minimum sample size required for the development of a new multivariable prediction model using the criteria proposed by Riley et al. (2018) <doi: 10.1002/sim.7992>. pmsampsize can be used to calculate the minimum sample size for the development of models with continuous, binary or survival (time-to-event) outcomes. Riley et al. (2018) <doi: 10.1002/sim.7992> lay out a series of criteria the sample size should meet. These aim to minimise the overfitting and to ensure precise estimation of key parameters in the prediction model.
 License: GPL (>= 3)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2022-02-12 16:45:24 UTC; prc87
-Author: Joie Ensor [aut, cre],
-  Emma C. Martin [aut],
-  Richard D. Riley [aut]
+Packaged: 2023-12-06 00:06:39 UTC; ensorj
+Author: Joie Ensor [aut, cre]
 Repository: CRAN
-Date/Publication: 2022-02-12 17:00:02 UTC
+Date/Publication: 2023-12-06 09:10:02 UTC

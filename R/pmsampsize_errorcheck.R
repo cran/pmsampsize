@@ -1,4 +1,4 @@
-pmsampsize_errorcheck <- function(type,rsquared,parameters,shrinkage,cstatistic,prevalence,
+pmsampsize_errorcheck <- function(type,csrsquared,nagrsquared,rsquared,parameters,shrinkage,cstatistic,prevalence,
                                   rate,timepoint,meanfup,intercept,sd,mmoe) {
 
   # syntax checks
@@ -39,9 +39,13 @@ pmsampsize_errorcheck <- function(type,rsquared,parameters,shrinkage,cstatistic,
       if (cstatistic < 0 | cstatistic > 1) stop('cstatistic must be between 0 and 1')
       if (is.numeric(cstatistic) == F) stop('cstatistic must be numeric')
     }
-    if (is.na(rsquared) == F) {
-      if (rsquared < 0 | rsquared > 1) stop('rsquared must be between 0 and 1')
-      if (is.numeric(rsquared) == F) stop('rsquared must be numeric')
+    if (is.na(nagrsquared) == F) {
+      if (nagrsquared < 0 | nagrsquared > 1) stop('nagrsquared must be between 0 and 1')
+      if (is.numeric(nagrsquared) == F) stop('nagrsquared must be numeric')
+    }
+    if (is.na(csrsquared) == F) {
+      if (csrsquared < 0 | csrsquared > 1) stop('csrsquared must be between 0 and 1')
+      if (is.numeric(csrsquared) == F) stop('csrsquared must be numeric')
     }
     if (prevalence <= 0 | prevalence >= 1) stop('prevalence must be between 0 and 1')
     # parameters not needed
@@ -59,7 +63,14 @@ pmsampsize_errorcheck <- function(type,rsquared,parameters,shrinkage,cstatistic,
     if (is.na(timepoint)) stop('timepoint must be specified for survival sample size')
     if (is.na(meanfup)) stop('meanfup must be specified for survival sample size')
     # parameter conditions
-    if (is.numeric(rsquared) == F) stop('rsquared must be numeric')
+    if (is.na(nagrsquared) == F) {
+      if (nagrsquared < 0 | nagrsquared > 1) stop('nagrsquared must be between 0 and 1')
+      if (is.numeric(nagrsquared) == F) stop('nagrsquared must be numeric')
+    }
+    if (is.na(csrsquared) == F) {
+      if (csrsquared < 0 | csrsquared > 1) stop('csrsquared must be between 0 and 1')
+      if (is.numeric(csrsquared) == F) stop('csrsquared must be numeric')
+    }
     if (is.numeric(rate) == F) stop('rate must be numeric')
     if (is.numeric(timepoint) == F) stop('timepoint must be numeric')
     if (is.numeric(meanfup) == F) stop('meanfup must be numeric')
